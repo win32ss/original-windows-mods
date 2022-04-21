@@ -27,7 +27,7 @@ BOOL VerifyVersionInfoWFake(LPOSVERSIONINFOEXW lpVersionInformation, DWORD dwTyp
 
 	  if(dwTypeMask & VER_MINORVERSION)
 	  {
-		   if(osex.dwMajorVersion > lpVersionInformation->dwMajorVersion)
+		   if(osex.dwMajorVersion > lpVersionInformation->dwMajorVersion && (dwTypeMask & VER_MAJORVERSION))
 			  Status = TRUE;
 
            if(dwlConditionMask & 1 || dwlConditionMask & 1 << 1 || dwlConditionMask & 1 << 2)
@@ -164,7 +164,8 @@ BOOL VerifyVersionInfoWFake(LPOSVERSIONINFOEXW lpVersionInformation, DWORD dwTyp
 	  {
 		  Status = FALSE;
 
-		   if(osex.dwMajorVersion > lpVersionInformation->dwMajorVersion || osex.dwMinorVersion > lpVersionInformation->dwMinorVersion)
+		   if(osex.dwMajorVersion > lpVersionInformation->dwMajorVersion && (dwTypeMask & VER_MAJORVERSION) || 
+		      osex.dwMinorVersion > lpVersionInformation->dwMinorVersion && (dwTypeMask & VER_MINORVERSION))
 			  Status = TRUE;
 
            if(dwlConditionMask & 1 << 12 || dwlConditionMask & 1 << 13 || dwlConditionMask & 1 << 14)
@@ -201,7 +202,8 @@ BOOL VerifyVersionInfoWFake(LPOSVERSIONINFOEXW lpVersionInformation, DWORD dwTyp
 	  {
 		  Status = FALSE;
  
-		  if(osex.dwMajorVersion > lpVersionInformation->dwMajorVersion || osex.dwMinorVersion > lpVersionInformation->dwMinorVersion)
+		  if(osex.dwMajorVersion > lpVersionInformation->dwMajorVersion && (dwTypeMask & VER_MAJORVERSION) || 
+		      osex.dwMinorVersion > lpVersionInformation->dwMinorVersion && (dwTypeMask & VER_MINORVERSION))
 			  Status = TRUE;
 
            if(dwlConditionMask & 1 << 15 || dwlConditionMask & 1 << 16 || dwlConditionMask & 1 << 17)
